@@ -169,7 +169,7 @@ function [percentage_threshold_inf_exceeded_array_animallevel_popnpersp,...
     %                          0.5 0.5 0];
     
     % Load group composition per scenario from data file
-    control_param_input_args_array = readmatrix('../../../src/SpatialSimns/ToyModel/parameter_combination_files/generic_model_control_param_val_array.txt');
+    control_param_input_args_array = readmatrix('../../src/spatial_simns/run_model_scripts/parameter_combination_files/generic_model_control_param_val_array.txt');
         % Three column array. 
         % Column 1: Proportion in "Initial adopters" group
         % Column 2: Proportion inf "Reactioners" group

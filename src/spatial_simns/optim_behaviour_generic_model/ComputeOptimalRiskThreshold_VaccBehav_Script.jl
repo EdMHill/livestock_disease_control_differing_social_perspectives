@@ -43,10 +43,9 @@ args = ARGS
 # args/ARGS list
 # args[1] job_ID
 # args[2] ConfigFn: Location and pathogen configuration
-# args[3] BatchID_offset: Value that BatchID is offset by
-# args[4] scen_offset: Value that scen_itr is offset by
+# args[3] scen_offset: Value that scen_itr is offset by
 if length(ARGS)==0
-    args = ["1","CumbriaSellkeFMDconfig","15000","0"]
+    args = ["1","CumbriaSellkeFMDconfig_alternate_transmiss_params","0"]
 end
 
 # To run from command line, example:
@@ -59,10 +58,7 @@ const job_ID = parse(Int64, args[1])
 const ConfigFn = args[2] #Make Symbol a callable function
 
 # Set value that BatchID will be offset by
-const BatchID_offset = parse(Int64, args[3])
-
-# Set value that BatchID will be offset by
-const scen_offset = parse(Int64, args[4])
+const scen_offset = parse(Int64, args[3])
 
 #-------------------------------------------------------------------------------
 ### CONSTRUCT VACCINE TO INFECTION COST RATIO VALUES TO BE TESTED
@@ -72,17 +68,26 @@ const VaccToInfCostRatio_NumTested = length(VaccToInfCostRatio) #Assign amount o
 
 
 #-------------------------------------------------------------------------------
-### SPECIFY INPUT PREFIX TO READ INPUT DATA FROM
+### SPECIFY INPUT PREFIX & BatchID_offset TO READ INPUT DATA FROM
 #-------------------------------------------------------------------------------
 if (ConfigFn == "CumbriaSellkeFMDconfig") ||
         (ConfigFn == "CumbriaSellkeFMDconfig_alternate_transmiss_params")
     InputFilesPrefix = "../../../results/GB_county_model_simn_outputs/Cumbria_EpiOutputs_Aggregated/"
+
 elseif (ConfigFn == "DevonSellkeFMDconfig") ||
         (ConfigFn == "DevonSellkeFMDconfig_alternate_transmiss_params")
     InputFilesPrefix = "../../../results/GB_county_model_simn_outputs/Devon_EpiOutputs_Aggregated/"
 else
     error("Invalid ConfigFn input.")
 end
+
+if (ConfigFn == "CumbriaSellkeFMDconfig") || (ConfigFn == "DevonSellkeFMDconfig")
+    BatchID_offset = 15000
+elseif (ConfigFn == "CumbriaSellkeFMDconfig_alternate_transmiss_params") ||
+        (ConfigFn == "DevonSellkeFMDconfig_alternate_transmiss_params")
+    BatchID_offset = 20000
+end
+
 
 #-------------------------------------------------------------------------------
 ### ITERATE OVER EACH THRESHOLD VALUE TESTED. COMPUTE COST SUMMARY STATISTICS UNDER EACH COST RATIO SCENARIO
@@ -97,11 +102,13 @@ permitted_grp_propn_vals = collect(0:0.05:1)
 n_permitted_grp_propn_vals = length(permitted_grp_propn_vals)
 
 # Get total number of scenarios
-n_scens = sum(collect(1:n_permitted_grp_propn_vals))*RiskThresholdValsTested
+n_scens = 231
 
 # Declare batch file values to be accessed
 # and set an identifier to add to all output file names
 for scen_itr = 1:n_scens
+
+    println("scen_itr: $scen_itr")
 
     # Set range of BatchIDs to be processed
     BatchID_start_idx = BatchID_offset + (scen_itr-1)*RiskThresholdValsTested + 1
@@ -336,7 +343,7 @@ for scen_itr = 1:n_scens
     # - Column by risk threshold value
 
     #Output arrays to file
-    AllRepsTotalCostFile = string("../../../results/OptimBehavSellkeSimns_GenericModel/OptimBehaviour_AllRepsTotalCostsOutputs/OptimBehav_AllRepsTotalCostData_",FileID,".mat")
+    AllRepsTotalCostFile = string("../../../results/generate_plot_scripts/OptimBehaviour_AllRepsTotalCostsOutputs/OptimBehav_AllRepsTotalCostData_",FileID,".mat")
     matwrite(AllRepsTotalCostFile, Dict(
             "TotalCostPerSimnReplicate_PremLevel_PopnPersp" => TotalCostPerSimnReplicate_PremLevel_PopnPersp,
             "TotalCostPerSimnReplicate_AnimalLevel_PopnPersp" => TotalCostPerSimnReplicate_AnimalLevel_PopnPersp,
@@ -353,7 +360,7 @@ for scen_itr = 1:n_scens
     # - Column by risk threshold value
 
     #Output arrays to file
-    SummStatTotalCostFile = string("../../../results/OptimBehavSellkeSimns_GenericModel/OptimBehaviour_SummStatsTotalCostsOutputs/OptimBehav_SummStatTotalCostData_",FileID,".mat")
+    SummStatTotalCostFile = string("../../../results/generate_plot_scripts/OptimBehaviour_SummStatsTotalCostsOutputs/OptimBehav_SummStatTotalCostData_",FileID,".mat")
     matwrite(SummStatTotalCostFile, Dict(
             "SummStatTotalCost_PremLevel_PopnPersp" => SummStatTotalCost_PremLevel_PopnPersp,
             "SummStatTotalCost_AnimalLevel_PopnPersp" => SummStatTotalCost_AnimalLevel_PopnPersp,
@@ -370,10 +377,10 @@ for scen_itr = 1:n_scens
     # - Column by summary statistic
 
     # Population perspective
-    writedlm(string("../../../results/OptimBehavSellkeSimns_GenericModel/OptimBehaviour_RiskThresholdOutputs/OptimThresholdVals_PremLevel_PopnPersp_",FileID,".txt"),OptimThresholdVals_PremLevel_PopnPersp)
-    writedlm(string("../../../results/OptimBehavSellkeSimns_GenericModel/OptimBehaviour_RiskThresholdOutputs/OptimThresholdVals_AnimalLevel_PopnPersp_",FileID,".txt"),OptimThresholdVals_AnimalLevel_PopnPersp)
+    writedlm(string("../../../results/generate_plot_scripts/OptimBehaviour_RiskThresholdOutputs/OptimThresholdVals_PremLevel_PopnPersp_",FileID,".txt"),OptimThresholdVals_PremLevel_PopnPersp)
+    writedlm(string("../../../results/generate_plot_scripts/OptimBehaviour_RiskThresholdOutputs/OptimThresholdVals_AnimalLevel_PopnPersp_",FileID,".txt"),OptimThresholdVals_AnimalLevel_PopnPersp)
 
     # Individual perspective
-    writedlm(string("../../../results/OptimBehavSellkeSimns_GenericModel/OptimBehaviour_RiskThresholdOutputs/OptimThresholdVals_PremLevel_IndivPersp_",FileID,".txt"),OptimThresholdVals_PremLevel_IndivPersp)
-    writedlm(string("../../../results/OptimBehavSellkeSimns_GenericModel/OptimBehaviour_RiskThresholdOutputs/OptimThresholdVals_AnimalLevel_IndivPersp_",FileID,".txt"),OptimThresholdVals_AnimalLevel_IndivPersp)
+    writedlm(string("../../../results/generate_plot_scripts/OptimBehaviour_RiskThresholdOutputs/OptimThresholdVals_PremLevel_IndivPersp_",FileID,".txt"),OptimThresholdVals_PremLevel_IndivPersp)
+    writedlm(string("../../../results/generate_plot_scripts/OptimBehaviour_RiskThresholdOutputs/OptimThresholdVals_AnimalLevel_IndivPersp_",FileID,".txt"),OptimThresholdVals_AnimalLevel_IndivPersp)
 end
