@@ -46,7 +46,7 @@ args = ARGS
 # args[3] BatchID_offset: Value that BatchID is offset by
 # args[4] scen_offset: Value that scen_itr is offset by
 if length(ARGS)==0
-    args = ["1","CumbriaFMDconfig","5000","300"]
+    args = ["1","CumbriaSellkeFMDconfig","15000","0"]
 end
 
 # To run from command line, example:
@@ -76,10 +76,10 @@ const VaccToInfCostRatio_NumTested = length(VaccToInfCostRatio) #Assign amount o
 #-------------------------------------------------------------------------------
 if (ConfigFn == "CumbriaSellkeFMDconfig") ||
         (ConfigFn == "CumbriaSellkeFMDconfig_alternate_transmiss_params")
-    InputFilesPrefix = "../../../results/sellke_construction/GBCountyModelSimnOutputs/Cumbria_EpiOutputs_Aggregated/"
+    InputFilesPrefix = "../../../results/GB_county_model_simn_outputs/Cumbria_EpiOutputs_Aggregated/"
 elseif (ConfigFn == "DevonSellkeFMDconfig") ||
         (ConfigFn == "DevonSellkeFMDconfig_alternate_transmiss_params")
-    InputFilesPrefix = "../../../results/sellke_construction/GBCountyModelSimnOutputs/Devon_EpiOutputs_Aggregated/"
+    InputFilesPrefix = "../../../results/GB_county_model_simn_outputs/Devon_EpiOutputs_Aggregated/"
 else
     error("Invalid ConfigFn input.")
 end
@@ -336,7 +336,7 @@ for scen_itr = 1:n_scens
     # - Column by risk threshold value
 
     #Output arrays to file
-    AllRepsTotalCostFile = string("../../../results/sellke_construction/OptimBehavSellkeSimns_GenericModel/OptimBehaviour_AllRepsTotalCostsOutputs/OptimBehav_AllRepsTotalCostData_",FileID,".mat")
+    AllRepsTotalCostFile = string("../../../results/OptimBehavSellkeSimns_GenericModel/OptimBehaviour_AllRepsTotalCostsOutputs/OptimBehav_AllRepsTotalCostData_",FileID,".mat")
     matwrite(AllRepsTotalCostFile, Dict(
             "TotalCostPerSimnReplicate_PremLevel_PopnPersp" => TotalCostPerSimnReplicate_PremLevel_PopnPersp,
             "TotalCostPerSimnReplicate_AnimalLevel_PopnPersp" => TotalCostPerSimnReplicate_AnimalLevel_PopnPersp,
@@ -353,7 +353,7 @@ for scen_itr = 1:n_scens
     # - Column by risk threshold value
 
     #Output arrays to file
-    SummStatTotalCostFile = string("../../../results/sellke_construction/OptimBehavSellkeSimns_GenericModel/OptimBehaviour_SummStatsTotalCostsOutputs/OptimBehav_SummStatTotalCostData_",FileID,".mat")
+    SummStatTotalCostFile = string("../../../results/OptimBehavSellkeSimns_GenericModel/OptimBehaviour_SummStatsTotalCostsOutputs/OptimBehav_SummStatTotalCostData_",FileID,".mat")
     matwrite(SummStatTotalCostFile, Dict(
             "SummStatTotalCost_PremLevel_PopnPersp" => SummStatTotalCost_PremLevel_PopnPersp,
             "SummStatTotalCost_AnimalLevel_PopnPersp" => SummStatTotalCost_AnimalLevel_PopnPersp,
@@ -370,10 +370,10 @@ for scen_itr = 1:n_scens
     # - Column by summary statistic
 
     # Population perspective
-    writedlm(string("../../../results/sellke_construction/OptimBehavSellkeSimns_GenericModel/OptimBehaviour_RiskThresholdOutputs/OptimThresholdVals_PremLevel_PopnPersp_",FileID,".txt"),OptimThresholdVals_PremLevel_PopnPersp)
-    writedlm(string("../../../results/sellke_construction/OptimBehavSellkeSimns_GenericModel/OptimBehaviour_RiskThresholdOutputs/OptimThresholdVals_AnimalLevel_PopnPersp_",FileID,".txt"),OptimThresholdVals_AnimalLevel_PopnPersp)
+    writedlm(string("../../../results/OptimBehavSellkeSimns_GenericModel/OptimBehaviour_RiskThresholdOutputs/OptimThresholdVals_PremLevel_PopnPersp_",FileID,".txt"),OptimThresholdVals_PremLevel_PopnPersp)
+    writedlm(string("../../../results/OptimBehavSellkeSimns_GenericModel/OptimBehaviour_RiskThresholdOutputs/OptimThresholdVals_AnimalLevel_PopnPersp_",FileID,".txt"),OptimThresholdVals_AnimalLevel_PopnPersp)
 
     # Individual perspective
-    writedlm(string("../../../results/sellke_construction/OptimBehavSellkeSimns_GenericModel/OptimBehaviour_RiskThresholdOutputs/OptimThresholdVals_PremLevel_IndivPersp_",FileID,".txt"),OptimThresholdVals_PremLevel_IndivPersp)
-    writedlm(string("../../../results/sellke_construction/OptimBehavSellkeSimns_GenericModel/OptimBehaviour_RiskThresholdOutputs/OptimThresholdVals_AnimalLevel_IndivPersp_",FileID,".txt"),OptimThresholdVals_AnimalLevel_IndivPersp)
+    writedlm(string("../../../results/OptimBehavSellkeSimns_GenericModel/OptimBehaviour_RiskThresholdOutputs/OptimThresholdVals_PremLevel_IndivPersp_",FileID,".txt"),OptimThresholdVals_PremLevel_IndivPersp)
+    writedlm(string("../../../results/OptimBehavSellkeSimns_GenericModel/OptimBehaviour_RiskThresholdOutputs/OptimThresholdVals_AnimalLevel_IndivPersp_",FileID,".txt"),OptimThresholdVals_AnimalLevel_IndivPersp)
 end

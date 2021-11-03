@@ -537,12 +537,12 @@ const BatchID_vec = collect(BatchID_start_idx:1:BatchID_end_idx)
 # Set input file name prefix
 if (ConfigFn == "CumbriaSellkeFMDconfig") ||
         (ConfigFn == "CumbriaSellkeFMDconfig_alternate_transmiss_params")
-    InputFilesPrefix = "../../../results/sellke_construction/GBCountyModelSimnOutputs/Cumbria_EpiOutputs_EventArrays/"
+    InputFilesPrefix = "../../../results/GBCountyModelSimnOutputs/Cumbria_EpiOutputs_EventArrays/"
 elseif (ConfigFn == "DevonSellkeFMDconfig") ||
         (ConfigFn == "DevonSellkeFMDconfig_alternate_transmiss_params")
-    InputFilesPrefix = "../../../results/sellke_construction/GBCountyModelSimnOutputs/Devon_EpiOutputs_EventArrays/"
+    InputFilesPrefix = "../../../results/GBCountyModelSimnOutputs/Devon_EpiOutputs_EventArrays/"
 elseif (ConfigFn == "TestSellkeSimnConfig")
-    InputFilesPrefix = "../../../results/sellke_construction/GenericLandscapeSimnOutputs/GenericLandscape_EpiOutputs_EventArrays/"
+    InputFilesPrefix = "../../../results/GenericLandscapeSimnOutputs/GenericLandscape_EpiOutputs_EventArrays/"
 else
     error("Invalid ConfigFn input.")
 end
@@ -555,22 +555,22 @@ for batch_itr = 1:length(BatchID_vec)
     if (ConfigFn == "CumbriaSellkeFMDconfig") ||
             (ConfigFn == "CumbriaSellkeFMDconfig_alternate_transmiss_params")
         # ReplicateOutbreakDurations - For each replicate, the time period spanned by the simn
-        ReplicateOutbreakDurations = readdlm("../../../results/sellke_construction/GBCountyModelSimnOutputs/Cumbria_EpiOutputs_Aggregated/OutbreakDuration_BatchID$(BatchID).txt")
+        ReplicateOutbreakDurations = readdlm("../../../results/GBCountyModelSimnOutputs/Cumbria_EpiOutputs_Aggregated/OutbreakDuration_BatchID$(BatchID).txt")
         ReplicateOutbreakDurations = ReplicateOutbreakDurations[:] #Pass to function as 1D vector
 
         ### Load Cumbria livestock and location data ###
-        CountyRawData = readdlm("../../../Data/ProcessedData/GBLivestockByCounty/GB_Farm_2020_CountyID08.txt")
+        CountyRawData = readdlm("../../../data/ProcessedData/GBLivestockByCounty/GB_Farm_2020_CountyID08.txt")
     elseif (ConfigFn == "DevonSellkeFMDconfig") ||
             (ConfigFn == "DevonSellkeFMDconfig_alternate_transmiss_params")
         # ReplicateOutbreakDurations - For each replicate, the time period spanned by the simn
-        ReplicateOutbreakDurations = readdlm("../../../results/sellke_construction/GBCountyModelSimnOutputs/Devon_EpiOutputs_Aggregated/OutbreakDuration_BatchID$(BatchID).txt")
+        ReplicateOutbreakDurations = readdlm("../../../results/GBCountyModelSimnOutputs/Devon_EpiOutputs_Aggregated/OutbreakDuration_BatchID$(BatchID).txt")
         ReplicateOutbreakDurations = ReplicateOutbreakDurations[:] #Pass to function as 1D vector
 
         ### Load Devon livestock and location data ###
-        CountyRawData = readdlm("../../../Data/ProcessedData/GBLivestockByCounty/GB_Farm_2020_CountyID10.txt")
+        CountyRawData = readdlm("../../../data/ProcessedData/GBLivestockByCounty/GB_Farm_2020_CountyID10.txt")
     elseif (ConfigFn == "TestSellkeSimnConfig")
         # ReplicateOutbreakDurations - For each replicate, the time period spanned by the simn
-        ReplicateOutbreakDurations = readdlm("../../../results/sellke_construction/GenericLandscapeSimnOutputs/GenericLandscape_EpiOutputs_Aggregated/OutbreakDuration_BatchID$(BatchID).txt")
+        ReplicateOutbreakDurations = readdlm("../../../results/GenericLandscapeSimnOutputs/GenericLandscape_EpiOutputs_Aggregated/OutbreakDuration_BatchID$(BatchID).txt")
         ReplicateOutbreakDurations = ReplicateOutbreakDurations[:] #Pass to function as 1D vector
 
         ### Load dummy livestock and location data ###
@@ -669,25 +669,17 @@ for batch_itr = 1:length(BatchID_vec)
     VaccEff = 1.
 
     # OutputFileName - Location where estimated incorrect vaccination results will be output
-    if (ConfigFn == "CumbriaFMDconfig") ||
-        (ConfigFn == "CumbriaFMDconfig_alternate_transmiss_params")
-        # Cumbria runs, grid method
-        OutputFileName = "../../../Results/grid_simns/GBCountyModelSimnOutputs/Cumbria_EpiOutputs_Aggregated/"
-    elseif (ConfigFn == "DevonFMDconfig") ||
-            (ConfigFn == "DevonFMDconfig_alternate_transmiss_params")
-        # Devon runs, grid method
-        OutputFileName = "../../../Results/grid_simns/GBCountyModelSimnOutputs/Devon_EpiOutputs_Aggregated/"
-    elseif (ConfigFn == "CumbriaSellkeFMDconfig") ||
+    if (ConfigFn == "CumbriaSellkeFMDconfig") ||
             (ConfigFn == "CumbriaSellkeFMDconfig_alternate_transmiss_params")
         # Cumbria runs, Sellke construction
-        OutputFileName = "../../../Results/sellke_construction/GBCountyModelSimnOutputs/Cumbria_EpiOutputs_Aggregated/"
+        OutputFileName = "../../../results/GBCountyModelSimnOutputs/Cumbria_EpiOutputs_Aggregated/"
     elseif (ConfigFn == "DevonSellkeFMDconfig") ||
             (ConfigFn == "DevonSellkeFMDconfig_alternate_transmiss_params")
         # Devon runs, Sellke construction
-        OutputFileName = "../../../Results/sellke_construction/GBCountyModelSimnOutputs/Devon_EpiOutputs_Aggregated/"
+        OutputFileName = "../../../results/GBCountyModelSimnOutputs/Devon_EpiOutputs_Aggregated/"
     elseif (ConfigFn == "TestSellkeSimnConfig")
         # Dummy model, Sellke construction
-        OutputFileName = "../../../Results/sellke_construction/GenericLandscapeSimnOutputs/GenericLandscape_EpiOutputs_Aggregated/"
+        OutputFileName = "../../../results/GenericLandscapeSimnOutputs/GenericLandscape_EpiOutputs_Aggregated/"
     end
 
     #Value error checks
