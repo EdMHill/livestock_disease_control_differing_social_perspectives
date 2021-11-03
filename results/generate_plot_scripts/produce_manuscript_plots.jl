@@ -20,7 +20,7 @@ Date: 3rd November 2021
 cd(dirname(@__FILE__))
 
 using Pkg
-Pkg.activate("../../../")
+Pkg.activate("../../")
 
 #-------------------------------------------------------------------------------
 # LOAD REQUIRED PACKAGES
@@ -39,40 +39,8 @@ using Shapefile
 # IMPORT REQUIRED FUNCTION FILES
 #-------------------------------------------------------------------------------
 include("OptimThresholdVsCostRatio_SellkeRuns_GenerateLinePlots.jl")
-include("../../../Data/DataVis/2020_livestock_popn_data_plots/county_comparison/between_county_livestock_comparison_script.jl")
+include("between_county_comparison_files/between_county_livestock_comparison_script.jl")
 include("OptimThresholdVsCostRatio_SellkeRuns_GenerateTernaryPlots.jl")
-
-#-------------------------------------------------------------------------------
-# DEFINE RECIPIES FOR USE IN THE PLOTS
-#-------------------------------------------------------------------------------
-# Set spacing between markers
-# Example usage: plot(range(0, 2π, length = 100), [sin, cos], st = :samplemarkers, step = 20, shape = :star)
-@recipe function f(::Type{Val{:samplemarkers}}, x, y, z; step = 10)
-    n = length(y)
-    sx, sy = x[1:step:n], y[1:step:n]
-    # add an empty series with the correct type for legend markers
-    @series begin
-        seriestype := :path
-        markershape --> :auto
-        x := []
-        y := []
-    end
-    # add a series for the line
-    @series begin
-        primary := false # no legend entry
-        markershape := :none # ensure no markers
-        seriestype := :path
-        seriescolor := get(plotattributes, :seriescolor, :auto)
-        x := x
-        y := y
-    end
-    # return  a series for the sampled markers
-    primary := false
-    seriestype := :scatter
-    markershape --> :auto
-    x := sx
-    y := sy
-end
 
 #-------------------------------------------------------------------------------
 # Cumbria & Devon livestock population demographics (Figure 1)
@@ -82,11 +50,8 @@ end
 save_fig_flag = false
 
 # Set county_IDs as a vector
-county_IDs = [8,10]
-# county_IDs = [0,0]
-            # Cumbria: 8
-            # Devon: 10
-            # Dummy data: 0
+county_IDs = [0,0]
+    # Dummy data: 0
 
 # Call the function to produce the plot set
 between_county_livestock_comparison_plots(save_fig_flag,county_IDs)
