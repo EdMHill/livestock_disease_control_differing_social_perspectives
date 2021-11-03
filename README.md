@@ -14,16 +14,24 @@ The main analyses in the paper require data not publicly available. To enable th
 Please find below an explainer of the directory structure within this repository.
 
 ## data
+
+**dummy_data**  
 Directory containing synthetic data on livestock counts and premises location data.
+
+**Shapefiles**  
+County and country boundary shapefiles for UK.
 
 ## results
 Directories to store simulation outputs and plot scripts.
 
-**GBCountyModelSimnOutputs**  
-Simulation output files
+**GB_county_model_simn_outputs**  
+Simulation output files for Cumbria and Devon configurations.
 
-**OptimBehavSimns_GenericModelSellke**  
+**generate_plot_scripts**  
 Plotting scripts
+
+**GenericLandscapeSimnOutputs**  
+Save location for output files from runs using dummy data.
 
 ## src
 
@@ -35,6 +43,10 @@ Houses directories with optimal strategy calculation code and mathematical model
 
 - **optim_behaviour_generic_model**
     * ComputeVaccButNoInfecStats.jl: Compute probability of vaccinated premises not being infected (after moment of vaccination).
-    * ComputeOptimalRiskThreshold_VaccBehav_Script.jl: Find optimal risk threshold to minimise cost
+    * ComputeOptimalRiskThreshold_VaccBehav_Script.jl: Find optimal risk threshold to minimise cost.
+
+- **run_model_scripts**
+    * run_generic_livestock_disease_spatial_model_sellke_vers.jl: Run the individual-based livestock disease epidemic model using the Sellke construction.
 
 - **sellke_simn_fns**
+    * Collection of files that contain the functions used in the main outbreak simulation.
