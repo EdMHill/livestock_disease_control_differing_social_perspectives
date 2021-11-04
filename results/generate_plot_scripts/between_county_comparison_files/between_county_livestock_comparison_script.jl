@@ -141,9 +141,11 @@ function between_county_livestock_comparison_plots(save_figs_flag::Bool,
         if county_ID == 0
             county_livestock_data_filename = "../../../data/dummy_data/livestock_dummy_data.txt"
         elseif county_ID < 10
-            county_livestock_data_filename = "../../../data/ProcessedData/GBLivestockByCounty/GB_Farm_2020_CountyID0$county_ID.txt"
+            county_livestock_data_filename = "../../../dummy_data/cumbria_synthetic_data.txt"
+            # county_livestock_data_filename = "../../../ProcessedData/GBLivestockByCounty/GB_Farm_2020_CountyID0$county_ID.txt"
         else
-            county_livestock_data_filename = "../../../data/ProcessedData/GBLivestockByCounty/GB_Farm_2020_CountyID$county_ID.txt"
+            county_livestock_data_filename = "../../../dummy_data/devon_synthetic_data.txt"
+            # county_livestock_data_filename = "../../../ProcessedData/GBLivestockByCounty/GB_Farm_2020_CountyID$county_ID.txt"
         end
 
         # Read in the data and retain the premises (rows) that have positive

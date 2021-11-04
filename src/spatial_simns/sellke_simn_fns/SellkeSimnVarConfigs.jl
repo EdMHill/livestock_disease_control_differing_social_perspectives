@@ -272,33 +272,20 @@ Location: SellkeSimnVarConfigs.jl
 function CumbriaSellkeFMDconfig(rng::AbstractRNG,control_param_input_args::Array{Float64,1})
 
     ### Load Cumbria livestock data ###
-    cumbria_data_filename = "../../../data/ProcessedData/GBLivestockByCounty/GB_Farm_2020_CountyID08.txt"
+    cumbria_data_filename = "../../../data/dummy_data/cumbria_synthetic_data.txt"
     CountyRawData = readdlm(cumbria_data_filename)
 
-    #Assign cattle herd and sheep flock size to variable
-    # AND assign location info to variable
-    if cumbria_data_filename == "../../../data/ProcessedData/GBLivestockByCounty/GB_Farm_2020_CountyID08.txt"
-        #Column breakdown
-        ## Cols 1-4: Survey year, CPH  Easting, Northing,
-        # Cols 5-10: Cattle, Sheep, Horses, Pigs, Geese, Chickens,
-        # Cols 11-15 Ducks, Goats, Turkeys, Other Poultry, Deer,
-        # Cols 16-20 Other livestock, Alpacas, Llamas, Bee hives
+    #Column breakdown
+    ## Cols 1-4: Survey year, CPH  Easting, Northing,
+    # Cols 5-10: Cattle, Sheep, Horses, Pigs, Geese, Chickens,
+    # Cols 11-15 Ducks, Goats, Turkeys, Other Poultry, Deer,
+    # Cols 16-20 Other livestock, Alpacas, Llamas, Bee hives
 
-        #Retain only Cattle and Sheep (columns 5 and 6)
-        cattle_and_sheep_column_idxs = [5,6]
+    #Retain only Cattle and Sheep (columns 5 and 6)
+    cattle_and_sheep_column_idxs = [5,6]
 
-        # Column indexes for location data
-        location_column_idxs = [3,4]
-    elseif cumbria_data_filename == "../../../data/ProcessedData/GBLivestockByCounty/GB_Farm_CountyID8.txt"
-        #Columns 7-11 corrspond to Cattle, Pigs, Sheep, Goats, Deer.
-        #Retain only Cattle and Sheep (columns 7 and 9)
-        cattle_and_sheep_column_idxs = [7,9]
-
-        # Column indexes for location data
-        location_column_idxs = [4,5]
-    else
-        error("Unrecognised cumbria_data_filename")
-    end
+    # Column indexes for location data
+    location_column_idxs = [3,4]
 
     #Cast as integer type array
     PremLivestockDataAll = convert(Array{Int64,2},abs.(CountyRawData[:,cattle_and_sheep_column_idxs])) #Negative values in data designate user-input value. Take absolute value
@@ -312,10 +299,10 @@ function CumbriaSellkeFMDconfig(rng::AbstractRNG,control_param_input_args::Array
     PremLocRaw = convert(Array{Float64,2},abs.(CountyRawData[RetainPremFlag,location_column_idxs])) #Negative values in data designate user-input value. Take absolute value
 
     #Set bounding box manually!
-    BoundingBoxLeft = 293400.
-    BoundingBoxRight = 389900.
-    BoundingBoxBottom = 460500.
-    BoundingBoxTop = 595000.
+    BoundingBoxLeft = 0. # 293400.
+    BoundingBoxRight = 100001. # 389900.
+    BoundingBoxBottom = 0. # 460500.
+    BoundingBoxTop = 100001. # 595000.
     BoundingBoxVar = [BoundingBoxLeft,BoundingBoxRight,BoundingBoxBottom,BoundingBoxTop]
 
     # PremLocData - (tuple) First entry: Co-ordinate type; Second entry: Columns with x/y or long/lat data; Third entry; Vector with bounding box information [Min_x,Max_x,Min_y,Max_y]
@@ -498,33 +485,14 @@ Location: SellkeSimnVarConfigs.jl
 function CumbriaSellkeFMDconfig_alternate_transmiss_params(rng::AbstractRNG,control_param_input_args::Array{Float64,1})
 
     ### Load Cumbria livestock data ###
-    cumbria_data_filename = "../../../data/ProcessedData/GBLivestockByCounty/GB_Farm_2020_CountyID08.txt"
+    cumbria_data_filename = "../../../data/dummy_data/cumbria_synthetic_data.txt"
     CountyRawData = readdlm(cumbria_data_filename)
 
-    #Assign cattle herd and sheep flock size to variable
-    # AND assign location info to variable
-    if cumbria_data_filename == "../../../data/ProcessedData/GBLivestockByCounty/GB_Farm_2020_CountyID08.txt"
-        #Column breakdown
-        ## Cols 1-4: Survey year, CPH  Easting, Northing,
-        # Cols 5-10: Cattle, Sheep, Horses, Pigs, Geese, Chickens,
-        # Cols 11-15 Ducks, Goats, Turkeys, Other Poultry, Deer,
-        # Cols 16-20 Other livestock, Alpacas, Llamas, Bee hives
+    #Retain only Cattle and Sheep (columns 5 and 6)
+    cattle_and_sheep_column_idxs = [5,6]
 
-        #Retain only Cattle and Sheep (columns 5 and 6)
-        cattle_and_sheep_column_idxs = [5,6]
-
-        # Column indexes for location data
-        location_column_idxs = [3,4]
-    elseif cumbria_data_filename == "../../../data/ProcessedData/GBLivestockByCounty/GB_Farm_CountyID8.txt"
-        #Columns 7-11 corrspond to Cattle, Pigs, Sheep, Goats, Deer.
-        #Retain only Cattle and Sheep (columns 7 and 9)
-        cattle_and_sheep_column_idxs = [7,9]
-
-        # Column indexes for location data
-        location_column_idxs = [4,5]
-    else
-        error("Unrecognised cumbria_data_filename")
-    end
+    # Column indexes for location data
+    location_column_idxs = [3,4]
 
     #Cast as integer type array
     PremLivestockDataAll = convert(Array{Int64,2},abs.(CountyRawData[:,cattle_and_sheep_column_idxs])) #Negative values in data designate user-input value. Take absolute value
@@ -538,10 +506,10 @@ function CumbriaSellkeFMDconfig_alternate_transmiss_params(rng::AbstractRNG,cont
     PremLocRaw = convert(Array{Float64,2},abs.(CountyRawData[RetainPremFlag,location_column_idxs])) #Negative values in data designate user-input value. Take absolute value
 
     #Set bounding box manually!
-    BoundingBoxLeft = 293400.
-    BoundingBoxRight = 389900.
-    BoundingBoxBottom = 460500.
-    BoundingBoxTop = 595000.
+    BoundingBoxLeft = 0. # 293400.
+    BoundingBoxRight = 100001. # 389900.
+    BoundingBoxBottom = 0. # 460500.
+    BoundingBoxTop = 100001. # 595000.
     BoundingBoxVar = [BoundingBoxLeft,BoundingBoxRight,BoundingBoxBottom,BoundingBoxTop]
 
     # PremLocData - (tuple) First entry: Co-ordinate type; Second entry: Columns with x/y or long/lat data; Third entry; Vector with bounding box information [Min_x,Max_x,Min_y,Max_y]
@@ -683,33 +651,20 @@ end
 function DevonSellkeFMDconfig(rng::AbstractRNG,control_param_input_args::Array{Float64,1})
 
     ### Load Devon livestock data ###
-    devon_data_filename = "../../../data/ProcessedData/GBLivestockByCounty/GB_Farm_2020_CountyID10.txt"
+    devon_data_filename = "../../../data/dummy_data/devon_synthetic_data.txt"
     CountyRawData = readdlm(devon_data_filename)
 
-    #Assign cattle herd and sheep flock size to variable
-    # AND assign location info to variable
-    if devon_data_filename == "../../../data/ProcessedData/GBLivestockByCounty/GB_Farm_2020_CountyID10.txt"
-        #Column breakdown
-        ## Cols 1-4: Survey year, CPH  Easting, Northing,
-        # Cols 5-10: Cattle, Sheep, Horses, Pigs, Geese, Chickens,
-        # Cols 11-15 Ducks, Goats, Turkeys, Other Poultry, Deer,
-        # Cols 16-20 Other livestock, Alpacas, Llamas, Bee hives
+    #Column breakdown
+    ## Cols 1-4: Survey year, CPH  Easting, Northing,
+    # Cols 5-10: Cattle, Sheep, Horses, Pigs, Geese, Chickens,
+    # Cols 11-15 Ducks, Goats, Turkeys, Other Poultry, Deer,
+    # Cols 16-20 Other livestock, Alpacas, Llamas, Bee hives
 
-        #Retain only Cattle and Sheep (columns 5 and 6)
-        cattle_and_sheep_column_idxs = [5,6]
+    #Retain only Cattle and Sheep (columns 5 and 6)
+    cattle_and_sheep_column_idxs = [5,6]
 
-        # Column indexes for location data
-        location_column_idxs = [3,4]
-    elseif devon_data_filename == "../../../data/ProcessedData/GBLivestockByCounty/GB_Farm_CountyID10.txt"
-        #Columns 7-11 corrspond to Cattle, Pigs, Sheep, Goats, Deer.
-        #Retain only Cattle and Sheep (columns 7 and 9)
-        cattle_and_sheep_column_idxs = [7,9]
-
-        # Column indexes for location data
-        location_column_idxs = [4,5]
-    else
-        error("Unrecognised devon_data_filename")
-    end
+    # Column indexes for location data
+    location_column_idxs = [3,4]
 
     #Cast as integer type array
     PremLivestockDataAll = convert(Array{Int64,2},abs.(CountyRawData[:,cattle_and_sheep_column_idxs])) #Negative values in data designate user-input value. Take absolute value
@@ -723,10 +678,10 @@ function DevonSellkeFMDconfig(rng::AbstractRNG,control_param_input_args::Array{F
     PremLocRaw = convert(Array{Float64,2},abs.(CountyRawData[RetainPremFlag,location_column_idxs])) #Negative values in data designate user-input value. Take absolute value
 
     #Set bounding box manually!
-    BoundingBoxLeft = 212000.
-    BoundingBoxRight = 340000.
-    BoundingBoxBottom = 34960.
-    BoundingBoxTop = 151210.
+    BoundingBoxLeft = 0. # 212000.
+    BoundingBoxRight = 100001. # 340000.
+    BoundingBoxBottom = 0. # 34960.
+    BoundingBoxTop = 100001. # 151210.
     BoundingBoxVar = [BoundingBoxLeft,BoundingBoxRight,BoundingBoxBottom,BoundingBoxTop]
     #-------------------------------------------------------------------------------
 
@@ -919,33 +874,20 @@ Location: SellkeSimnVarConfigs.jl
 function DevonSellkeFMDconfig_alternate_transmiss_params(rng::AbstractRNG,control_param_input_args::Array{Float64,1})
 
     ### Load Devon livestock data ###
-    devon_data_filename = "../../../data/ProcessedData/GBLivestockByCounty/GB_Farm_2020_CountyID10.txt"
+    devon_data_filename = "../../../data/dummy_data/devon_synthetic_data.txt"
     CountyRawData = readdlm(devon_data_filename)
 
-    #Assign cattle herd and sheep flock size to variable
-    # AND assign location info to variable
-    if devon_data_filename == "../../../data/ProcessedData/GBLivestockByCounty/GB_Farm_2020_CountyID10.txt"
-        #Column breakdown
-        ## Cols 1-4: Survey year, CPH  Easting, Northing,
-        # Cols 5-10: Cattle, Sheep, Horses, Pigs, Geese, Chickens,
-        # Cols 11-15 Ducks, Goats, Turkeys, Other Poultry, Deer,
-        # Cols 16-20 Other livestock, Alpacas, Llamas, Bee hives
+    #Column breakdown
+    ## Cols 1-4: Survey year, CPH  Easting, Northing,
+    # Cols 5-10: Cattle, Sheep, Horses, Pigs, Geese, Chickens,
+    # Cols 11-15 Ducks, Goats, Turkeys, Other Poultry, Deer,
+    # Cols 16-20 Other livestock, Alpacas, Llamas, Bee hives
 
-        #Retain only Cattle and Sheep (columns 5 and 6)
-        cattle_and_sheep_column_idxs = [5,6]
+    #Retain only Cattle and Sheep (columns 5 and 6)
+    cattle_and_sheep_column_idxs = [5,6]
 
-        # Column indexes for location data
-        location_column_idxs = [3,4]
-    elseif devon_data_filename == "../../../data/ProcessedData/GBLivestockByCounty/GB_Farm_CountyID10.txt"
-        #Columns 7-11 corrspond to Cattle, Pigs, Sheep, Goats, Deer.
-        #Retain only Cattle and Sheep (columns 7 and 9)
-        cattle_and_sheep_column_idxs = [7,9]
-
-        # Column indexes for location data
-        location_column_idxs = [4,5]
-    else
-        error("Unrecognised devon_data_filename")
-    end
+    # Column indexes for location data
+    location_column_idxs = [3,4]
 
     #Cast as integer type array
     PremLivestockDataAll = convert(Array{Int64,2},abs.(CountyRawData[:,cattle_and_sheep_column_idxs])) #Negative values in data designate user-input value. Take absolute value
@@ -959,10 +901,10 @@ function DevonSellkeFMDconfig_alternate_transmiss_params(rng::AbstractRNG,contro
     PremLocRaw = convert(Array{Float64,2},abs.(CountyRawData[RetainPremFlag,location_column_idxs])) #Negative values in data designate user-input value. Take absolute value
 
     #Set bounding box manually!
-    BoundingBoxLeft = 212000.
-    BoundingBoxRight = 340000.
-    BoundingBoxBottom = 34960.
-    BoundingBoxTop = 151210.
+    BoundingBoxLeft = 0. # 212000.
+    BoundingBoxRight = 100001. # 340000.
+    BoundingBoxBottom = 0. # 34960.
+    BoundingBoxTop = 100001. # 151210.
     BoundingBoxVar = [BoundingBoxLeft,BoundingBoxRight,BoundingBoxBottom,BoundingBoxTop]
     #-------------------------------------------------------------------------------
 

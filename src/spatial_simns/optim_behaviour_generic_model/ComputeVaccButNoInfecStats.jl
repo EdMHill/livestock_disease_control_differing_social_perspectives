@@ -499,7 +499,7 @@ args = ARGS
 # args[4] ConfigFn: Location and pathogen configuration
 # args[5] nReps: Number of replicates requested
 if length(ARGS)==0
-    args = [ "1","0","0","TestSellkeSimnConfig","10"]
+    args = [ "11","0","0","CumbriaSellkeFMDconfig","10"]
 end
 
 # To run from command line, example:
@@ -537,10 +537,10 @@ const BatchID_vec = collect(BatchID_start_idx:1:BatchID_end_idx)
 # Set input file name prefix
 if (ConfigFn == "CumbriaSellkeFMDconfig") ||
         (ConfigFn == "CumbriaSellkeFMDconfig_alternate_transmiss_params")
-    InputFilesPrefix = "../../../results/GBCountyModelSimnOutputs/Cumbria_EpiOutputs_EventArrays/"
+    InputFilesPrefix = "../../../results/GB_county_model_simn_outputs/Cumbria_EpiOutputs_EventArrays/"
 elseif (ConfigFn == "DevonSellkeFMDconfig") ||
         (ConfigFn == "DevonSellkeFMDconfig_alternate_transmiss_params")
-    InputFilesPrefix = "../../../results/GBCountyModelSimnOutputs/Devon_EpiOutputs_EventArrays/"
+    InputFilesPrefix = "../../../results/GB_county_model_simn_outputs/Devon_EpiOutputs_EventArrays/"
 elseif (ConfigFn == "TestSellkeSimnConfig")
     InputFilesPrefix = "../../../results/GenericLandscapeSimnOutputs/GenericLandscape_EpiOutputs_EventArrays/"
 else
@@ -555,19 +555,21 @@ for batch_itr = 1:length(BatchID_vec)
     if (ConfigFn == "CumbriaSellkeFMDconfig") ||
             (ConfigFn == "CumbriaSellkeFMDconfig_alternate_transmiss_params")
         # ReplicateOutbreakDurations - For each replicate, the time period spanned by the simn
-        ReplicateOutbreakDurations = readdlm("../../../results/GBCountyModelSimnOutputs/Cumbria_EpiOutputs_Aggregated/OutbreakDuration_BatchID$(BatchID).txt")
+        ReplicateOutbreakDurations = readdlm("../../../results/GB_county_model_simn_outputs/Cumbria_EpiOutputs_Aggregated/OutbreakDuration_BatchID$(BatchID).txt")
         ReplicateOutbreakDurations = ReplicateOutbreakDurations[:] #Pass to function as 1D vector
 
         ### Load Cumbria livestock and location data ###
-        CountyRawData = readdlm("../../../data/ProcessedData/GBLivestockByCounty/GB_Farm_2020_CountyID08.txt")
+        CountyRawData = readdlm("../../../data/dummy_data/cumbria_synthetic_data.txt")
+        # CountyRawData = readdlm("../../../data/ProcessedData/GBLivestockByCounty/GB_Farm_2020_CountyID08.txt")
     elseif (ConfigFn == "DevonSellkeFMDconfig") ||
             (ConfigFn == "DevonSellkeFMDconfig_alternate_transmiss_params")
         # ReplicateOutbreakDurations - For each replicate, the time period spanned by the simn
-        ReplicateOutbreakDurations = readdlm("../../../results/GBCountyModelSimnOutputs/Devon_EpiOutputs_Aggregated/OutbreakDuration_BatchID$(BatchID).txt")
+        ReplicateOutbreakDurations = readdlm("../../../results/GB_county_model_simn_outputs/Devon_EpiOutputs_Aggregated/OutbreakDuration_BatchID$(BatchID).txt")
         ReplicateOutbreakDurations = ReplicateOutbreakDurations[:] #Pass to function as 1D vector
 
         ### Load Devon livestock and location data ###
-        CountyRawData = readdlm("../../../data/ProcessedData/GBLivestockByCounty/GB_Farm_2020_CountyID10.txt")
+        CountyRawData = readdlm("../../../data/dummy_data/devon_synthetic_data.txt")
+        # CountyRawData = readdlm("../../../data/ProcessedData/GBLivestockByCounty/GB_Farm_2020_CountyID10.txt")
     elseif (ConfigFn == "TestSellkeSimnConfig")
         # ReplicateOutbreakDurations - For each replicate, the time period spanned by the simn
         ReplicateOutbreakDurations = readdlm("../../../results/GenericLandscapeSimnOutputs/GenericLandscape_EpiOutputs_Aggregated/OutbreakDuration_BatchID$(BatchID).txt")
@@ -595,26 +597,26 @@ for batch_itr = 1:length(BatchID_vec)
     PremLocs = convert(Array{Float64,2},abs.(CountyRawData[RetainPremFlag,3:4])) #Negative values in data designate user-input value. Take absolute value
     ################################################################################
 
-    # If needed, remove premises that lie outside the specified bounding box
-    if ( (ConfigFn == "DevonSellkeFMDconfig") ||
-         (ConfigFn == "DevonSellkeFMDconfig_alternate_transmiss_params") )
-
-         # Devon region bounding box
-         BoundingBoxLeft = 212000.
-         BoundingBoxRight = 340000.
-         BoundingBoxBottom = 34960.
-         BoundingBoxTop = 151210.
-
-         # Check if locations lie inside bounding box
-         valid_prem_loc_flag = (PremLocs[:,1] .>= BoundingBoxLeft) .&
-                                 (PremLocs[:,1] .<= BoundingBoxRight) .&
-                                 (PremLocs[:,2] .>= BoundingBoxBottom) .&
-                                 (PremLocs[:,2] .<= BoundingBoxTop)
-
-         # Update location and livestock arrays
-         PremLocs  = PremLocs[valid_prem_loc_flag,:]
-         PremLivestockData = PremLivestockData[valid_prem_loc_flag,:]
-    end
+    # # If needed, remove premises that lie outside the specified bounding box
+    # if ( (ConfigFn == "DevonSellkeFMDconfig") ||
+    #      (ConfigFn == "DevonSellkeFMDconfig_alternate_transmiss_params") )
+    #
+    #      # Devon region bounding box
+    #      BoundingBoxLeft = 212000.
+    #      BoundingBoxRight = 340000.
+    #      BoundingBoxBottom = 34960.
+    #      BoundingBoxTop = 151210.
+    #
+    #      # Check if locations lie inside bounding box
+    #      valid_prem_loc_flag = (PremLocs[:,1] .>= BoundingBoxLeft) .&
+    #                              (PremLocs[:,1] .<= BoundingBoxRight) .&
+    #                              (PremLocs[:,2] .>= BoundingBoxBottom) .&
+    #                              (PremLocs[:,2] .<= BoundingBoxTop)
+    #
+    #      # Update location and livestock arrays
+    #      PremLocs  = PremLocs[valid_prem_loc_flag,:]
+    #      PremLivestockData = PremLivestockData[valid_prem_loc_flag,:]
+    # end
 
 
     ################################################################################
@@ -672,11 +674,11 @@ for batch_itr = 1:length(BatchID_vec)
     if (ConfigFn == "CumbriaSellkeFMDconfig") ||
             (ConfigFn == "CumbriaSellkeFMDconfig_alternate_transmiss_params")
         # Cumbria runs, Sellke construction
-        OutputFileName = "../../../results/GBCountyModelSimnOutputs/Cumbria_EpiOutputs_Aggregated/"
+        OutputFileName = "../../../results/GB_county_model_simn_outputs/Cumbria_EpiOutputs_Aggregated/"
     elseif (ConfigFn == "DevonSellkeFMDconfig") ||
             (ConfigFn == "DevonSellkeFMDconfig_alternate_transmiss_params")
         # Devon runs, Sellke construction
-        OutputFileName = "../../../results/GBCountyModelSimnOutputs/Devon_EpiOutputs_Aggregated/"
+        OutputFileName = "../../../results/GB_county_model_simn_outputs/Devon_EpiOutputs_Aggregated/"
     elseif (ConfigFn == "TestSellkeSimnConfig")
         # Dummy model, Sellke construction
         OutputFileName = "../../../results/GenericLandscapeSimnOutputs/GenericLandscape_EpiOutputs_Aggregated/"

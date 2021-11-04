@@ -9,7 +9,10 @@ Preprint details: TBC
 Model simulations are performed using the programming language Julia.
 Julia makes use of environments, allowing bespoke package lists for separate projects. Documentation on working with environments and installing packages in the same state that is given by the project manifest: https://pkgdocs.julialang.org/v1/environments/#Using-someone-else's-project
 
-The main analyses in the paper require data not publicly available. To enable the main simulations scripts to be run, we provide synthetic livestock demography and premises location data.
+The main analyses in the paper require data that are not publicly available.  
+We instead provide synthetic cattle and sheep demography data for Cumbria and Devon, with premises (matching the number retained in the data used for our analyses) randomly located in a 100kmx100km region. This enables the user to run the main simulation script (run_generic_livestock_disease_spatial_model_sellke_vers.jl) and a supporting script to compute the probability of a vaccinated premises not having been infected if it had been unvaccinated (ComputeVaccButNoInfecStats.jl).
+
+We provide results files that allow the user to run the script returning the optimal strategy from a given perspective (ComputeOptimalRiskThreshold_VaccBehav_Script.jl) and the plotting scripts.
 
 Please find below an explainer of the directory structure within this repository.
 
@@ -28,7 +31,7 @@ Directories to store simulation outputs and plot scripts.
 Simulation output files for Cumbria and Devon configurations.
 
 **generate_plot_scripts**  
-Plotting scripts
+Main plotting scripts are produce_manuscript_plots.jl and produce_manuscript_plots.m.
 
 **GenericLandscapeSimnOutputs**  
 Save location for output files from runs using dummy data.

@@ -643,7 +643,7 @@ args = ARGS
 # args[6] nReps: Number of replicates requested
 # args[7] precalc_dist_and_kernel_array_flag: Set if should precalculate distance and kernel arrays
 if length(ARGS)==0
-    args = [ "1", "0", "0", "99", "TestSellkeSimnConfig", "10", "true"]
+    args = [ "11", "0", "0", "99", "CumbriaSellkeFMDconfig", "10", "true"]
 end
 
 # To run from command line, example:
