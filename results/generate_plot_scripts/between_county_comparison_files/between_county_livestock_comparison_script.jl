@@ -141,10 +141,10 @@ function between_county_livestock_comparison_plots(save_figs_flag::Bool,
         if county_ID == 0
             county_livestock_data_filename = "../../../data/dummy_data/livestock_dummy_data.txt"
         elseif county_ID < 10
-            county_livestock_data_filename = "../../../dummy_data/cumbria_synthetic_data.txt"
+            county_livestock_data_filename = "../../../data/dummy_data/cumbria_synthetic_data.txt"
             # county_livestock_data_filename = "../../../ProcessedData/GBLivestockByCounty/GB_Farm_2020_CountyID0$county_ID.txt"
         else
-            county_livestock_data_filename = "../../../dummy_data/devon_synthetic_data.txt"
+            county_livestock_data_filename = "../../../data/dummy_data/devon_synthetic_data.txt"
             # county_livestock_data_filename = "../../../ProcessedData/GBLivestockByCounty/GB_Farm_2020_CountyID$county_ID.txt"
         end
 
@@ -159,31 +159,32 @@ function between_county_livestock_comparison_plots(save_figs_flag::Bool,
         cattle_and_sheep_column_idxs = [5,6]
         prem_livestock_data_cattle_and_sheep_only = prem_livestock_data_all[:,cattle_and_sheep_column_idxs]
 
-        # Check premises lies within specified bounding box
-        if county_ID == 10
-            # Devon
-
-            # Bounding box
-            bounding_box_left = 212000
-            bounding_box_right = 340000
-            bounding_box_bottom = 34960
-            bounding_box_top = 151210
-
-            # Check validity of locations.
-            # Remove locations outside of bounding box
-            prem_loc_raw = prem_livestock_data_all[:,[3,4]]
-            valid_prem_loc_flag = (prem_loc_raw[:,1] .>= bounding_box_left) .&
-                                (prem_loc_raw[:,1] .<= bounding_box_right) .&
-                                (prem_loc_raw[:,2] .>= bounding_box_bottom) .&
-                                (prem_loc_raw[:,2] .<= bounding_box_top)
-        else
-            valid_prem_loc_flag = ones(Bool,size(prem_livestock_data_all,1))
-        end
+        # # Check premises lies within specified bounding box
+        # if county_ID == 10
+        #     # Devon
+        #
+        #     # Bounding box
+        #     bounding_box_left = 212000
+        #     bounding_box_right = 340000
+        #     bounding_box_bottom = 34960
+        #     bounding_box_top = 151210
+        #
+        #     # Check validity of locations.
+        #     # Remove locations outside of bounding box
+        #     prem_loc_raw = prem_livestock_data_all[:,[3,4]]
+        #     valid_prem_loc_flag = (prem_loc_raw[:,1] .>= bounding_box_left) .&
+        #                         (prem_loc_raw[:,1] .<= bounding_box_right) .&
+        #                         (prem_loc_raw[:,2] .>= bounding_box_bottom) .&
+        #                         (prem_loc_raw[:,2] .<= bounding_box_top)
+        # else
+        #
+        # end
 
         # Retain those premises that have cattle and/or sheep present AND
         # are within the bounding box
         total_cattle_sheep_on_prem = sum(prem_livestock_data_cattle_and_sheep_only,dims=2)[:]
             # Use [:] to put into vector
+        valid_prem_loc_flag = ones(Bool,size(prem_livestock_data_all,1))
         retain_prem_flag = (total_cattle_sheep_on_prem.>0) .& (valid_prem_loc_flag .== true)
 
         # Assign retained premises location and livestock records to storage cell

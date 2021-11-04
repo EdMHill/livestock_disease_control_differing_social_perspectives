@@ -50,9 +50,10 @@ include("OptimThresholdVsCostRatio_SellkeRuns_GenerateTernaryPlots.jl")
 save_fig_flag = false
 
 # Set county_IDs as a vector
-county_IDs = [0,0]
-    # Dummy data: 0
-
+county_IDs = [8,10]
+    # Cumbria: 8
+    # Devon: 10
+    
 # Call the function to produce the plot set
 between_county_livestock_comparison_plots(save_fig_flag,county_IDs)
 
@@ -60,14 +61,11 @@ between_county_livestock_comparison_plots(save_fig_flag,county_IDs)
 # All reactionary vaccinators scenario plots (Figure 2)
 #-------------------------------------------------------------------------------
 
-#Set path to directory this file resides in
-cd(dirname(@__FILE__))
-
 # Specify if generated figures should be saved to file
 save_fig_flag = false
 
 # Specify the configuration (location & pathogen attribute set) in use
-# config_ID = "cumbria"
+config_ID = "cumbria"
 # config_ID = "cumbria_alt"
 # config_ID = "devon"
 # config_ID = "devon_alt"
