@@ -91,10 +91,10 @@ function OptimThresholdVsCostRatio_SellkeRuns_GenerateTernaryPlot(save_figure_fl
     optim_strat_colourbar_label = "Risk threshold: Notified premises distance (km)"
 
     # Setup colour map options for optimal strategy plots
-    CT_purple = cgrad(:Purples_9, n_risk_measures, categorical = true)
+    CT_red = cgrad(:Reds_9, n_risk_measures, categorical = true)
 
     my_cmap = [RGB(0.5,0.5,0.5);
-                         CT_purple[2:end]] # Have first entry as grey
+                         CT_red[end:-1:2]] # Have first entry as grey
     optim_strat_chosen_cmap = palette(my_cmap, n_risk_measures) # Set uo colourmap as a palette to give discrete colourbar (rather than a gradient)
 
     # # Setup colourbar options for cost under optimal strategy plots
@@ -220,8 +220,8 @@ function OptimThresholdVsCostRatio_SellkeRuns_GenerateTernaryPlot(save_figure_fl
     percentile_slice_idx = 3
 
     # Initialise storage arrays for the optimal strategy
-    optim_control_array_animallevel_popnpersp = zeros(Float64,n_rel_vacc_costs,n_vacc_uptake_strats)
-    optim_control_array_animallevel_indivpersp = zeros(Float64,n_rel_vacc_costs,n_vacc_uptake_strats)
+    optim_control_array_animallevel_popnpersp = zeros(Int64,n_rel_vacc_costs,n_vacc_uptake_strats)
+    optim_control_array_animallevel_indivpersp = zeros(Int64,n_rel_vacc_costs,n_vacc_uptake_strats)
 
     # Initialise storage arrays to record the percentage of replicates that
     # exceeded a specified number of premises infected under the strategy identified as optimal

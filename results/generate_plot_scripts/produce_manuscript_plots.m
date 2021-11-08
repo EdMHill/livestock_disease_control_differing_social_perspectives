@@ -38,7 +38,7 @@ rel_cost_of_vacc_idxs = [2,21,41,61,81,101]; % e.g. 1 for 0, 11 for 0.1, 51 for 
 
 % Flag to specify if strategy outputs should be computed and plotted
 compute_optim_strategy_flag = true;
-plot_optim_strategy_flag = true;
+plot_optim_strategy_flag = false;
 
 % Flag to specify if cost outputs should be produced
 plot_costs_flag = false;
@@ -47,7 +47,7 @@ plot_costs_flag = false;
 % percentile values + exceedence of threshold infection should be computed
 plot_infections_vaccs_flag = false;
 compute_infections_vacc_flag = false; % If false, values are loaded from an existing MAT file, selected based on config_ID
-prctiles_infections_vaccs = [2.5 50 97.5];
+prctiles_infections_vaccs = [50 2.5 97.5 5 95 25 75];
 threshold_infections_vals = [10 25 50 100 250 500 1000];
 
 % Call the function to produce the ternary plot set
@@ -68,3 +68,27 @@ threshold_infections_vals = [10 25 50 100 250 500 1000];
                                                             compute_infections_vacc_flag,...
                                                             prctiles_infections_vaccs,...
                                                             threshold_infections_vals);
+
+% Check if should save outputs to MAT file
+if compute_infections_vacc_flag == true
+
+    % Set save filename based on configuration
+    if strcmp(config_ID,'cumbria')
+        save_file_MAT = 'OptimBehaviour_InfVacc_PlotData/cumbria_inf_vacc_ternary_plot_data.mat';
+    elseif strcmp(config_ID,'cumbria_alt')
+        save_file_MAT = 'OptimBehaviour_InfVacc_PlotData/cumbria_alt_inf_vacc_ternary_plot_data.mat';
+    elseif strcmp(config_ID,'devon')
+        save_file_MAT = 'OptimBehaviour_InfVacc_PlotData/devon_inf_vacc_ternary_plot_data.mat';
+    elseif strcmp(config_ID,'devon_alt')
+        save_file_MAT = 'OptimBehaviour_InfVacc_PlotData/devon_alt_inf_vacc_ternary_plot_data.mat';
+    else
+        error('Invalid config_ID provided.')
+    end
+
+    save(save_file_MAT,'percentage_threshold_inf_exceeded_array_animallevel_popnpersp',...
+                          'percentage_threshold_inf_exceeded_array_animallevel_indivpersp',...
+                          'percentage_infected_array_animallevel_popnpersp',...
+                          'percentage_infected_array_animallevel_indivpersp',...
+                          'percentage_vacc_array_animallevel_popnpersp',...
+                          'percentage_vacc_array_animallevel_indivpersp')
+end

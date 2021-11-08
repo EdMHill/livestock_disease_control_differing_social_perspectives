@@ -53,7 +53,7 @@ save_fig_flag = false
 county_IDs = [8,10]
     # Cumbria: 8
     # Devon: 10
-    
+
 # Call the function to produce the plot set
 between_county_livestock_comparison_plots(save_fig_flag,county_IDs)
 
@@ -111,7 +111,7 @@ plot_costs_flag = false
 # percentile values + exceedence of threshold infection should be computed
 plot_infections_vaccs_flag = false
 compute_infections_vacc_flag = false # If false, values are loaded from an existing MAT file, selected based on config_ID
-prctiles_infections_vaccs = [2.5,50,97.5]
+prctiles_infections_vaccs = [50,2.5,97.5,5,95,25,75]
 threshold_infections_vals = [10,25,50,100,250,500,1000]
 
 # Call the function to produce the ternary plot set

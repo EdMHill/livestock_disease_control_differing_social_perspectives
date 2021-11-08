@@ -83,13 +83,13 @@ function OptimThresholdVsCostRatio_SellkeRuns_GenerateLinePlots(save_fig_flag::B
       # Load infection and vaccination (under optimal strategy) summary statistic data
       #----------------------------------------------------------------------
       if config_ID == "cumbria"
-         infection_vacc_data = matread("OptimBehaviour_InfVacc_PlotData/cumbria_inf_vacc_ternary_plot_data.mat")
+         infection_vacc_data = matread("OptimBehaviour_InfVacc_PlotData/cumbria_inf_vacc_ternary_plot_data_julia.mat")
       elseif config_ID == "cumbria_alt"
-         infection_vacc_data = matread("OptimBehaviour_InfVacc_PlotData/cumbria_alt_inf_vacc_ternary_plot_data.mat")
+         infection_vacc_data = matread("OptimBehaviour_InfVacc_PlotData/cumbria_alt_inf_vacc_ternary_plot_data_julia.mat")
       elseif config_ID == "devon"
-         infection_vacc_data = matread("OptimBehaviour_InfVacc_PlotData/devon_inf_vacc_ternary_plot_data.mat")
+         infection_vacc_data = matread("OptimBehaviour_InfVacc_PlotData/devon_inf_vacc_ternary_plot_data_julia.mat")
       elseif config_ID == "devon_alt"
-         infection_vacc_data = matread("OptimBehaviour_InfVacc_PlotData/devon_alt_inf_vacc_ternary_plot_data.mat")
+         infection_vacc_data = matread("OptimBehaviour_InfVacc_PlotData/devon_alt_inf_vacc_ternary_plot_data_julia.mat")
       else
           error("Invalid config_ID provided.")
       end
@@ -100,25 +100,25 @@ function OptimThresholdVsCostRatio_SellkeRuns_GenerateLinePlots(save_fig_flag::B
       infection_exceed_thereshold_popnpersp = infection_vacc_data["percentage_threshold_inf_exceeded_array_animallevel_popnpersp"][:,21,2]
       infection_exceed_thereshold_indivpersp = infection_vacc_data["percentage_threshold_inf_exceeded_array_animallevel_indivpersp"][:,21,2]
 
-          # Percentage of premises infected, slice to pick out the percentile: [2.5 50 97.5] e.g. Index 2 for median.
-      infection_data_popnpersp_median = infection_vacc_data["percentage_infected_array_animallevel_popnpersp"][:,21,2]
-      infection_data_indivpersp_median = infection_vacc_data["percentage_infected_array_animallevel_indivpersp"][:,21,2]
+          # Percentage of premises infected, slice to pick out the percentile: [50,2.5,97.5,5,95,25,75] e.g. Index 1 for median.
+          infection_data_popnpersp_median = infection_vacc_data["percentage_infected_array_animallevel_popnpersp"][:,21,1]
+          infection_data_indivpersp_median = infection_vacc_data["percentage_infected_array_animallevel_indivpersp"][:,21,1]
 
-      infection_data_popnpersp_LB = infection_vacc_data["percentage_infected_array_animallevel_popnpersp"][:,21,1]
-      infection_data_indivpersp_LB = infection_vacc_data["percentage_infected_array_animallevel_indivpersp"][:,21,1]
+          infection_data_popnpersp_LB = infection_vacc_data["percentage_infected_array_animallevel_popnpersp"][:,21,2]
+          infection_data_indivpersp_LB = infection_vacc_data["percentage_infected_array_animallevel_indivpersp"][:,21,2]
 
-      infection_data_popnpersp_UB = infection_vacc_data["percentage_infected_array_animallevel_popnpersp"][:,21,3]
-      infection_data_indivpersp_UB = infection_vacc_data["percentage_infected_array_animallevel_indivpersp"][:,21,3]
+          infection_data_popnpersp_UB = infection_vacc_data["percentage_infected_array_animallevel_popnpersp"][:,21,3]
+          infection_data_indivpersp_UB = infection_vacc_data["percentage_infected_array_animallevel_indivpersp"][:,21,3]
 
-          # Percentage of premises vaccinated, slice to pick out the percentile: [2.5 50 97.5] e.g. Index 2 for median.
-      vacc_data_popnpersp_median = infection_vacc_data["percentage_vacc_array_animallevel_popnpersp"][:,21,2]
-      vacc_data_indivpersp_median = infection_vacc_data["percentage_vacc_array_animallevel_indivpersp"][:,21,2]
+          # Percentage of premises vaccinated, slice to pick out the percentile: [50,2.5,97.5,5,95,25,75] e.g. Index 1 for median.
+          vacc_data_popnpersp_median = infection_vacc_data["percentage_vacc_array_animallevel_popnpersp"][:,21,1]
+          vacc_data_indivpersp_median = infection_vacc_data["percentage_vacc_array_animallevel_indivpersp"][:,21,1]
 
-      vacc_data_popnpersp_LB = infection_vacc_data["percentage_vacc_array_animallevel_popnpersp"][:,21,1]
-      vacc_data_indivpersp_LB = infection_vacc_data["percentage_vacc_array_animallevel_indivpersp"][:,21,1]
+          vacc_data_popnpersp_LB = infection_vacc_data["percentage_vacc_array_animallevel_popnpersp"][:,21,2]
+          vacc_data_indivpersp_LB = infection_vacc_data["percentage_vacc_array_animallevel_indivpersp"][:,21,2]
 
-      vacc_data_popnpersp_UB = infection_vacc_data["percentage_vacc_array_animallevel_popnpersp"][:,21,3]
-      vacc_data_indivpersp_UB = infection_vacc_data["percentage_vacc_array_animallevel_indivpersp"][:,21,3]
+          vacc_data_popnpersp_UB = infection_vacc_data["percentage_vacc_array_animallevel_popnpersp"][:,21,3]
+          vacc_data_indivpersp_UB = infection_vacc_data["percentage_vacc_array_animallevel_indivpersp"][:,21,3]
 
       #--------------------------------------------------------------------------
       # Declare vaccine to infection cost ratio values that were tested
@@ -151,9 +151,9 @@ function OptimThresholdVsCostRatio_SellkeRuns_GenerateLinePlots(save_fig_flag::B
       yaxis_tick_labels_infection = 0:10:100
 
       # y-axis limits & tick labels - infection plots (with prediction intervals)
-      yaxis_lims_infection_with_PI = (0,42)
-      yaxis_tick_pos_infection_with_PI = 0:4:40
-      yaxis_tick_labels_infection_with_PI = 0:4:40
+      yaxis_lims_infection_with_PI = (0.1,42)
+      yaxis_tick_pos_infection_with_PI = [0.1,1,10]
+      yaxis_tick_labels_infection_with_PI = ["0.1","1","10"]
 
       # y-axis limits & tick labels - vaccination plots (median profile only)
       yaxis_lims_vacc = (0,10)
@@ -281,7 +281,8 @@ function OptimThresholdVsCostRatio_SellkeRuns_GenerateLinePlots(save_fig_flag::B
                   linewidth=1.5,
                   framestyle = :box,
                   fontfamily = "Computer Modern",
-                  label = ""
+                  label = "",
+                  yaxis=:log
                   )
 
       # Construct line for median individual perspective
@@ -300,7 +301,7 @@ function OptimThresholdVsCostRatio_SellkeRuns_GenerateLinePlots(save_fig_flag::B
                 linealpha = facealpha_val,
                 linewidth = 0,
                 c = RGB(0,0,0.8),
-                label = "",
+                label = ""
                 )
 
       # Construct filled region - individual perspective
@@ -332,7 +333,7 @@ function OptimThresholdVsCostRatio_SellkeRuns_GenerateLinePlots(save_fig_flag::B
              ylims = yaxis_lims_infection_with_PI,
              yguidefontsize = label_fontsize,
              ytickfontsize = tick_fontsize,
-             yformatter = :plain)
+             yminorticks = 10)
 
       # If appropriate, specify the overall plot size
       plot!(size=(fig_width, fig_height))
