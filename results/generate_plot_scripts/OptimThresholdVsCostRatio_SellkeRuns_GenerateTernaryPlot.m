@@ -796,8 +796,14 @@ function data_point_ternary(ternay_plot_pos_array,...
     set(htick(:,2),'color','k','linewidth',3,'fontsize',tick_label_fontsize)
     set(htick(:,3),'color','k','linewidth',3,'fontsize',tick_label_fontsize)
 
+    %-- Move "100" tick label to left so does not spill onto marker
     set(htick(end,2),'Position',[-0.0879016858716176 -5.55111512312578e-17 0])
-        % Move "100" tick label to left so does not spill onto marker
+
+    %-- Move ticks on bottom axis to the left
+    set(htick(1,1),'Position',get(htick(1,1),'Position') - [0.02 0 0])
+    for tick_itr = 2:length(htick(:,1))
+        set(htick(tick_itr,1),'Position',get(htick(tick_itr,1),'Position') - [0.03 0 0])
+    end
 
     %--  Change the color of the patch
     set(h,'facecolor',[1. 1. 1.],'edgecolor','k')
