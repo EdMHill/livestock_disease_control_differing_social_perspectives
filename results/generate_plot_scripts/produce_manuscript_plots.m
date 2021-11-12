@@ -7,7 +7,7 @@
 
 clear variables
 
-%% Optimal strategy ternary plots (Figure 3)
+%% Optimal strategy ternary plots (Figures 3-4 & S3-S12)
 
 % Add colourbrewer and ternary plot packages to path
 addpath('../../src/matlab_packages/cbrewer/')
@@ -92,3 +92,15 @@ if compute_infections_vacc_flag == true
                           'percentage_vacc_array_animallevel_popnpersp',...
                           'percentage_vacc_array_animallevel_indivpersp')
 end
+
+%% Example ternary plot (Figure S2)
+
+% Add ternary plot package to path
+addpath('../../src/matlab_packages/ternary2/')
+
+% Specify if generated figures should be saved to file
+save_fig_flag = true;
+
+% Produce a single ternary plot. Markers on the corners. 
+% One example somewhere in middle with grid lines highlighted
+make_explainer_ternary_plot(save_fig_flag)
