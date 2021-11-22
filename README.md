@@ -4,7 +4,7 @@ This repository contains files for performing computational simulations of a mat
 
 The code was developed for the analysis presented in the scientific paper "Modelling livestock infectious disease control policy under differing social perspectives on vaccination behaviour" by Edward M. Hill, Naomi S. Prosser, Eamonn Ferguson, Jasmeet Kaler, Martin J. Green, Matt J. Keeling and Michael J. Tildesley.
 
-Preprint details: EM Hill, NS Prosser, E Ferguson, J Kaler, MJ Green, MJ Keeling, MJ Tildesley. (2021) Modelling livestock infectious disease control policy under differing social perspectives on vaccination behaviour. bioRxiv doi: 10.1101/2021.11.17.468854. URL: https://doi.org/10.1101/2021.11.17.468854
+Preprint details: EM Hill, NS Prosser, E Ferguson, J Kaler, MJ Green, MJ Keeling, MJ Tildesley. (2021) Modelling livestock infectious disease control policy under differing social perspectives on vaccination behaviour. agriRxiv.
 
 Model simulations are performed using the programming language Julia.
 Julia makes use of environments, allowing bespoke package lists for separate projects. Documentation on working with environments and installing packages in the same state that is given by the project manifest: https://pkgdocs.julialang.org/v1/environments/#Using-someone-else's-project
