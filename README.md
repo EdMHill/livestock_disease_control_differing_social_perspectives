@@ -2,8 +2,6 @@
 
 This repository contains files for performing computational simulations of a mathematical model framework to investigate the role of vaccine behaviour across a population of farmers on epidemic outbreaks amongst livestock, caused by pathogens with differential speed of spread over spatial landscapes of farms for two counties in England (Cumbria and Devon).
 
-[![DOI](https://zenodo.org/badge/423575897.svg)](https://zenodo.org/badge/latestdoi/423575897)
-
 The code was developed for the analysis presented in the scientific paper "Modelling livestock infectious disease control policy under differing social perspectives on vaccination behaviour" by Edward M. Hill, Naomi S. Prosser, Eamonn Ferguson, Jasmeet Kaler, Martin J. Green, Matt J. Keeling and Michael J. Tildesley.
 
 Preprint details: EM Hill, NS Prosser, E Ferguson, J Kaler, MJ Green, MJ Keeling, MJ Tildesley. (2021) Modelling livestock infectious disease control policy under differing social perspectives on vaccination behaviour. agriRxiv. doi: 10.31220/agriRxiv.2021.00100. URL: https://doi.org/10.31220/agriRxiv.2021.00100
