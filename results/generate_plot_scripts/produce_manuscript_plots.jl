@@ -1,6 +1,6 @@
 #=
 Purpose:
-Script to call functions producing figures for the manuscript YYY
+Script to call functions producing figures for the manuscript
 
 Useful Julia plotting resource:
 https://nextjournal.com/leandromartinez98/tips-to-create-beautiful-publication-quality-plots-in-julia
