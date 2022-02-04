@@ -310,15 +310,41 @@ function between_county_livestock_comparison_plots(save_figs_flag::Bool,
     # Initialise plot
     plt_ecdfs = StatsPlots.plot()
 
+    # Set percentile summary stats for cow herd/sheep flock size to be calculated
+    livestock_popn_prctile_vals = [0.5 0.25 0.75 0.975]
+
     # Extract the cattle herd sizes and sheep flock sizes for each county
     # Compute the ecdfs and add to plot
     for county_itr = 1:n_counties
-        # Get the ecdfs and x-axis positions
-        f_cattle_plot = ecdf(livestock_data_tuple[county_itr][:,3])
-        x_cattle_plot = sort(livestock_data_tuple[county_itr][:,3])
 
-        f_sheep_plot = ecdf(livestock_data_tuple[county_itr][:,4])
-        x_sheep_plot = sort(livestock_data_tuple[county_itr][:,4])
+        # Get IDs of premises where the given livestock type is present
+        cattle_herd_present_ID = livestock_data_tuple[county_itr][:,3] .> 0
+        sheep_flock_present_ID = livestock_data_tuple[county_itr][:,4] .> 0
+
+        # Construct population vectors limited to premises where the given livestock type was present
+        cattle_herd_size_present_vec = livestock_data_tuple[county_itr][cattle_herd_present_ID,3]
+        sheep_flock_size_present_vec = livestock_data_tuple[county_itr][sheep_flock_present_ID,4]
+
+        # Print median, IQR and 97.5th percentile information for herd/flock size
+        # Only include premises where that flock type was present
+        cattle_herd_sum_stats = quantile(cattle_herd_size_present_vec,livestock_popn_prctile_vals)
+        sheep_flock_sum_stats = quantile(sheep_flock_size_present_vec,livestock_popn_prctile_vals)
+        if county_itr == 1 # Cumbria
+            println("Cumbria cattle herd summary stats. Median: $(cattle_herd_sum_stats[1]); IQR: ($(cattle_herd_sum_stats[2]),$(cattle_herd_sum_stats[3])); 97.5th percentile: $(cattle_herd_sum_stats[4])")
+            println("Cumbria sheep flock summary stats. Median: $(sheep_flock_sum_stats[1]); IQR: ($(sheep_flock_sum_stats[2]),$(sheep_flock_sum_stats[3])); 97.5th percentile: $(sheep_flock_sum_stats[4])")
+        elseif county_itr == 2 # Devon
+            println("Devon cattle herd summary stats. Median: $(cattle_herd_sum_stats[1]); IQR: ($(cattle_herd_sum_stats[2]),$(cattle_herd_sum_stats[3])); 97.5th percentile: $(cattle_herd_sum_stats[4])")
+            println("Devon sheep flock summary stats. Median: $(sheep_flock_sum_stats[1]); IQR: ($(sheep_flock_sum_stats[2]),$(sheep_flock_sum_stats[3])); 97.5th percentile: $(sheep_flock_sum_stats[4])")
+        else
+            error("Invalid county_itr value of $county_itr. Expected value of 1 or 2.")
+        end
+
+        # Get the ecdfs and x-axis positions
+        f_cattle_plot = ecdf(cattle_herd_size_present_vec)
+        x_cattle_plot = sort(cattle_herd_size_present_vec)
+
+        f_sheep_plot = ecdf(sheep_flock_size_present_vec)
+        x_sheep_plot = sort(sheep_flock_size_present_vec)
 
         # Add ecdf for cattle herd size to plot
         plot!(x_cattle_plot,y -> f_cattle_plot(y),
