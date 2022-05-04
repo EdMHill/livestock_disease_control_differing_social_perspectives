@@ -2,14 +2,14 @@
 
 This repository contains files for performing computational simulations of a mathematical model framework to investigate the role of vaccine behaviour across a population of farmers on epidemic outbreaks amongst livestock, caused by pathogens with differential speed of spread over spatial landscapes of farms for two counties in England (Cumbria and Devon).
 
-[![DOI](https://zenodo.org/badge/423575897.svg)](https://zenodo.org/badge/latestdoi/423575897)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5730226.svg)](https://doi.org/10.5281/zenodo.5730226)
 
 The code was developed for the analysis presented in the scientific paper "Modelling livestock infectious disease control policy under differing social perspectives on vaccination behaviour" by Edward M. Hill, Naomi S. Prosser, Eamonn Ferguson, Jasmeet Kaler, Martin J. Green, Matt J. Keeling and Michael J. Tildesley.
 
-Preprint details: EM Hill, NS Prosser, E Ferguson, J Kaler, MJ Green, MJ Keeling, MJ Tildesley. (2021) Modelling livestock infectious disease control policy under differing social perspectives on vaccination behaviour. agriRxiv. doi: 10.31220/agriRxiv.2021.00100. URL: https://doi.org/10.31220/agriRxiv.2021.00100
+Preprint details: EM Hill, NS Prosser, E Ferguson, J Kaler, MJ Green, MJ Keeling, MJ Tildesley. (2021) Modelling livestock infectious disease control policy under differing social perspectives on vaccination behaviour. agriRxiv. doi: 10.31220/agriRxiv.2021.00100. URL: [https://doi.org/10.31220/agriRxiv.2021.00100][https://doi.org/10.31220/agriRxiv.2021.00100]{:target="_blank"}
 
 Model simulations are performed using the programming language Julia.
-Julia makes use of environments, allowing bespoke package lists for separate projects. Documentation on working with environments and installing packages in the same state that is given by the project manifest: https://pkgdocs.julialang.org/v1/environments/#Using-someone-else's-project
+Julia makes use of environments, allowing bespoke package lists for separate projects. Documentation on working with environments and installing packages in the same state that is given by the project manifest: [https://pkgdocs.julialang.org/v1/environments/#Using-someone-else's-project][https://pkgdocs.julialang.org/v1/environments/#Using-someone-else's-project]{:target="_blank"}
 
 The main analyses in the paper require data that are not publicly available.  
 We instead provide synthetic cattle and sheep demography data for Cumbria and Devon, with premises (matching the number retained in the data used for our analyses) randomly located in a 100kmx100km region. This enables the user to run the main simulation script (run_generic_livestock_disease_spatial_model_sellke_vers.jl) and a supporting script to compute the probability of a vaccinated premises not having been infected if it had been unvaccinated (ComputeVaccButNoInfecStats.jl). Note the results produced using the synthetic data would not match those from the paper.
@@ -26,8 +26,8 @@ Directory containing synthetic data on livestock counts and premises location da
 **Shapefiles**  
 County and country boundary shapefiles for UK. Source: Office for National Statistics licensed under the Open Government Licence v.3.0 Contains OS data © Crown copyright and database right 2022.
 
-* Countries (December 2020) UK BGC dataset: https://geoportal.statistics.gov.uk/datasets/ons::countries-december-2020-uk-bgc/about
-* Counties and Unitary Authorities (December 2020) UK BGC dataset: https://www.arcgis.com/home/item.html?id=aff50e8d15364a7b82c62c14861eb240
+* Countries (December 2020) UK BGC dataset: [https://geoportal.statistics.gov.uk/datasets/ons::countries-december-2020-uk-bgc/about][https://geoportal.statistics.gov.uk/datasets/ons::countries-december-2020-uk-bgc/about]{:target="_blank"}
+* Counties and Unitary Authorities (December 2020) UK BGC dataset: [https://www.arcgis.com/home/item.html?id=aff50e8d15364a7b82c62c14861eb240][https://www.arcgis.com/home/item.html?id=aff50e8d15364a7b82c62c14861eb240]{:target="_blank"}
 
 ## results
 Directories to store simulation outputs and plot scripts.
