@@ -24,7 +24,7 @@ Please find below an explainer of the directory structure within this repository
 Directory containing synthetic data on livestock counts and premises location data.
 
 **Shapefiles**  
-County and country boundary shapefiles for UK. Source: Office for National Statistics licensed under the Open Government Licence v.3.0 Contains OS data © Crown copyright and database right 2022.
+County and country boundary shapefiles for UK. Source: Office for National Statistics licensed under the Open Government Licence v.3.0. Contains OS data © Crown copyright and database right 2022.
 
 * Countries (December 2020) UK BGC dataset: https://geoportal.statistics.gov.uk/datasets/ons::countries-december-2020-uk-bgc/about
 * Counties and Unitary Authorities (December 2020) UK BGC dataset: https://www.arcgis.com/home/item.html?id=aff50e8d15364a7b82c62c14861eb240
