@@ -8,6 +8,8 @@ The code was developed for the analysis presented in the scientific paper "Model
 
 Preprint details: EM Hill, NS Prosser, E Ferguson, J Kaler, MJ Green, MJ Keeling, MJ Tildesley. (2021) Modelling livestock infectious disease control policy under differing social perspectives on vaccination behaviour. agriRxiv. doi: 10.31220/agriRxiv.2021.00100. URL: https://doi.org/10.31220/agriRxiv.2021.00100
 
+Peer-reviewed publication details: EM Hill, NS Prosser, E Ferguson, J Kaler, MJ Green, MJ Keeling, MJ Tildesley. (2022) Modelling livestock infectious disease control policy under differing social perspectives on vaccination behaviour. *PLOS Computational Biology* 18(7): e1010235. doi: 10.1371/journal.pcbi.1010235. URL: https://doi.org/10.1371/journal.pcbi.1010235
+
 Model simulations are performed using the programming language Julia.
 Julia makes use of environments, allowing bespoke package lists for separate projects. Documentation on working with environments and installing packages in the same state that is given by the project manifest: https://pkgdocs.julialang.org/v1/environments/#Using-someone-else's-project
 
